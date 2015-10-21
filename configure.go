@@ -52,5 +52,6 @@ func makefileFromStub() {
 	}
 
 	// Needs removing, just for using var
-	if string(sf) == "" {}
+	if string(sf) == "" {
+	}
 }
