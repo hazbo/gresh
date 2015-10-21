@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
+
+	"gopkg.in/leyra/toml.v1"
 )
 
 var configFiles = []string{
@@ -27,4 +30,27 @@ func findConfigFile(fileName string) bool {
 		return true
 	}
 	return false
+}
+
+type makefileStub struct {
+	Deps struct {
+		Goget            []string
+		EnableLocalStubs string
+	}
+}
+
+func makefileFromStub() {
+	sf, err := ioutil.ReadFile("./extras/stubs/Makefile")
+	if err != nil {
+		panic(err)
+	}
+
+	var makefile makefileStub
+	buf := configBuffer("./etc/deps.conf")
+	if err := toml.Unmarshal(buf, &makefile); err != nil {
+		panic(err)
+	}
+
+	// Needs removing, just for using var
+	if string(sf) == "" {}
 }
