@@ -21,10 +21,15 @@ func main() {
 					fmt.Println("e.g. gresh new my_app")
 					return
 				}
+				leyra := new(leyra)
+				leyra.get(c)
+			},
+		},
+		{
+			Name:  "configure",
+			Usage: "configure your application",
+			Action: func(c *cli.Context) {
 
-				f := new(file)
-				f.download("https://github.com/leyra/leyra/archive/master.zip")
-				f.unzip("master.zip", c.Args()[0])
 			},
 		},
 	}

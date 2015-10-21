@@ -8,30 +8,42 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"gopkg.in/leyra/cli.v1"
 )
 
-type file struct {
-	url  string
-	name string
+const url = "https://github.com/leyra/leyra/archive/master.zip"
+
+type leyra struct {
+	url     string
+	archive string
 }
 
-func (f *file) download(url string) {
+func (l leyra) get(c *cli.Context) {
+	l.download()
+	l.unzip()
+	l.rename(c.Args()[0])
+}
+
+func (l *leyra) download() {
+	l.url = url
+
 	// Gets the file tokens
-	t := strings.Split(url, "/")
-	fileName := t[len(t)-1]
+	t := strings.Split(l.url, "/")
+	l.archive = t[len(t)-1]
 
 	fmt.Println("Downloading latest version of Leyra...")
-	output, err := os.Create(fileName)
+	output, err := os.Create(l.archive)
 	if err != nil {
-		fmt.Println("Error while creating", fileName, "-", err)
+		fmt.Println("Error while creating", l.archive, "-", err)
 		return
 	}
 
 	defer output.Close()
 
-	response, err := http.Get(url)
+	response, err := http.Get(l.url)
 	if err != nil {
-		fmt.Println("Error while downloading", url, "-", err)
+		fmt.Println("Error while downloading", l.url, "-", err)
 		return
 	}
 
@@ -39,15 +51,15 @@ func (f *file) download(url string) {
 
 	_, err = io.Copy(output, response.Body)
 	if err != nil {
-		fmt.Println("Error while downloading", url, "-", err)
+		fmt.Println("Error while downloading", l.url, "-", err)
 		return
 	}
 
 	fmt.Println("Finished!")
 }
 
-func (f *file) unzip(path string, to string) {
-	reader, err := zip.OpenReader(path)
+func (l leyra) unzip() {
+	reader, err := zip.OpenReader(l.archive)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -86,6 +98,9 @@ func (f *file) unzip(path string, to string) {
 
 		}
 	}
-	os.Rename("leyra-master", to)
 	os.Remove("master.zip")
+}
+
+func (l leyra) rename(dest string) {
+	os.Rename("leyra-master", dest)
 }
