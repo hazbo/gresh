@@ -29,7 +29,11 @@ func main() {
 			Name:  "configure",
 			Usage: "configure your application",
 			Action: func(c *cli.Context) {
-
+				if findConfigFiles() != true {
+					fmt.Println("No changes were made")
+					return
+				}
+				fmt.Println("All configuration files were found!")
 			},
 		},
 	}

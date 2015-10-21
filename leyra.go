@@ -22,7 +22,8 @@ type leyra struct {
 func (l leyra) get(c *cli.Context) {
 	l.download()
 	l.unzip()
-	l.rename(c.Args()[0])
+	l.setupDirs(c.Args()[0])
+	l.rename(c.Args()[0] + "/src/leyra")
 }
 
 func (l *leyra) download() {
@@ -103,4 +104,9 @@ func (l leyra) unzip() {
 
 func (l leyra) rename(dest string) {
 	os.Rename("leyra-master", dest)
+}
+
+func (l leyra) setupDirs(directoryName string) {
+	os.Mkdir(directoryName, 0755)
+	os.Mkdir(directoryName+"/src", 0755)
 }

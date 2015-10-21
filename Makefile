@@ -9,5 +9,8 @@ gresh: deps gresh.go
 run: gresh
 	./gresh
 
+install: gresh
+	cp gresh /usr/local/bin/gresh
+
 clean:
 	rm gresh
