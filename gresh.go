@@ -33,6 +33,11 @@ func main() {
 					fmt.Println("No changes were made")
 					return
 				}
+				// TODO: The following will output our new Makefile to stdout.
+				// This will need to go somewhere around here, with all other
+				// files generated from stubs.
+				//
+				// makefileFromStub()
 				fmt.Println("All configuration files were found!")
 			},
 		},

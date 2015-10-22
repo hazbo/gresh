@@ -12,6 +12,7 @@ import (
 	"gopkg.in/leyra/cli.v1"
 )
 
+// TODO: We'll probably not use the master branch for this eventually
 const url = "https://github.com/leyra/leyra/archive/master.zip"
 
 type leyra struct {

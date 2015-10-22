@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"text/template"
 
 	"gopkg.in/leyra/toml.v1"
 )
@@ -32,26 +33,39 @@ func findConfigFile(fileName string) bool {
 	return false
 }
 
-type makefileStub struct {
+type makefileConf struct {
 	Deps struct {
 		Goget            []string
 		EnableLocalStubs string
 	}
 }
 
+type makefileStub struct {
+	Goget            []string
+	EnableLocalStubs string
+}
+
+// TODO: This whole function is a mess and parts of it will be needed for all
+// other stubs, so although it works, it needs fixing. The naming conventions
+// here are awful. And we shouldn't need two *almost* identicle structs that
+// hold the same data.
 func makefileFromStub() {
 	sf, err := ioutil.ReadFile("./extras/stubs/Makefile")
 	if err != nil {
 		panic(err)
 	}
 
-	var makefile makefileStub
+	var makefileC makefileConf
 	buf := configBuffer("./etc/deps.conf")
-	if err := toml.Unmarshal(buf, &makefile); err != nil {
+	if err := toml.Unmarshal(buf, &makefileC); err != nil {
 		panic(err)
 	}
 
-	// Needs removing, just for using var
-	if string(sf) == "" {
+	makefileS := makefileStub{
+		Goget:            makefileC.Deps.Goget,
+		EnableLocalStubs: makefileC.Deps.EnableLocalStubs,
 	}
+
+	t := template.Must(template.New("letter").Parse(string(sf)))
+	err = t.Execute(os.Stdout, makefileS)
 }
