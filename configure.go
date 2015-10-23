@@ -10,10 +10,8 @@ import (
 )
 
 var configFiles = []string{
-	"database.conf",
 	"deps.conf",
 	"rc.conf",
-	"server.conf",
 }
 
 func findConfigFiles() bool {
