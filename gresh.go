@@ -23,6 +23,12 @@ func main() {
 				}
 				leyra := new(leyra)
 				leyra.get(c)
+				fmt.Println("")
+				fmt.Println("Congrats! You now have a brand new copy of Leyra.")
+				fmt.Println("The next thing you should do is to update your GOPATH to your newly created")
+				fmt.Printf("project directory, %s.\n\n", c.Args()[0])
+				fmt.Printf("This could look something like: export GOPATH=$(pwd)/%s\n\n", c.Args()[0])
+				fmt.Printf("From now on, all gresh commands must be run from ./%s/src/leyra\n", c.Args()[0])
 			},
 		},
 		{
