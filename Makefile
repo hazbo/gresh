@@ -2,6 +2,7 @@ all: gresh
 
 deps:
 	go get gopkg.in/leyra/cli.v1
+	go get gopkg.in/leyra/color.v1
 
 gresh: deps gresh.go
 	go build -v -o gresh

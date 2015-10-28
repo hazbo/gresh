@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"gopkg.in/leyra/cli.v1"
+	"gopkg.in/leyra/color.v1"
 )
 
 // TODO: We'll probably not use the master branch for this eventually
@@ -96,8 +97,8 @@ func (l leyra) unzip() {
 				os.Exit(1)
 			}
 
-			fmt.Println(path)
-
+			green := color.New(color.FgGreen).SprintFunc()
+			fmt.Printf("%s %s\n", green("create"), path)
 		}
 	}
 	os.Remove("master.zip")
