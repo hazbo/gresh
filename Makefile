@@ -5,6 +5,7 @@ deps:
 	go get gopkg.in/leyra/color.v1
 
 gresh: deps gresh.go
+	go fmt ./...
 	go build -v -o gresh
 
 run: gresh

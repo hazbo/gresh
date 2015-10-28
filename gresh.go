@@ -22,7 +22,7 @@ func main() {
 					return
 				}
 				leyra := new(leyra)
-				leyra.get(c)
+				leyra.get(c.Args())
 				fmt.Println("")
 				fmt.Println("Congrats! You now have a brand new copy of Leyra.")
 				fmt.Println("The next thing you should do is to update your GOPATH to your newly created")

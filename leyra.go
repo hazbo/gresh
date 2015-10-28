@@ -9,7 +9,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"gopkg.in/leyra/cli.v1"
 	"gopkg.in/leyra/color.v1"
 )
 
@@ -21,11 +20,11 @@ type leyra struct {
 	archive string
 }
 
-func (l leyra) get(c *cli.Context) {
+func (l leyra) get(args []string) {
 	l.download()
 	l.unzip()
-	l.setupDirs(c.Args()[0])
-	l.rename(c.Args()[0] + "/src/leyra")
+	l.setupDirs(args[0])
+	l.rename(args[0] + "/src/leyra")
 }
 
 func (l *leyra) download() {
