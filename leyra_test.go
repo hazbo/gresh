@@ -33,6 +33,33 @@ func TestGet(t *testing.T) {
 	}
 }
 
+func TestFetch(t *testing.T) {
+	l := leyra{}
+	l.fetch([]string{
+		"leyra/blog",
+	})
+
+	resApp, err := exists("blog")
+	if resApp != true {
+		t.Error("Expecting to find 'blog' directory. Does not exist.")
+	}
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	os.RemoveAll("blog")
+
+	resZip, err := exists("master.zip")
+	if resZip != false {
+		t.Error("master.zip found. File should be deleted")
+	}
+
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func exists(path string) (bool, error) {
 	_, err := os.Stat(path)
 	if err == nil {

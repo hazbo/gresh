@@ -14,5 +14,8 @@ run: gresh
 install: gresh
 	cp gresh /usr/local/bin/gresh
 
+test: deps gresh.go
+	go test -cover -v
+
 clean:
 	rm gresh

@@ -20,21 +20,29 @@ type leyra struct {
 	archive string
 }
 
-func (l leyra) get(args []string) {
+func (l *leyra) get(args []string) {
+	l.url = url
 	l.download()
 	l.unzip()
 	l.setupDirs(args[0])
-	l.rename(args[0] + "/src/leyra")
+	l.rename("leyra-master", args[0]+"/src/leyra")
+}
+
+func (l *leyra) fetch(args []string) {
+	l.url = fmt.Sprintf("https://github.com/%s/archive/master.zip", args[0])
+	parts := strings.Split(args[0], "/")
+	name := parts[1]
+	l.download()
+	l.unzip()
+	l.setupDirs(name)
+	l.rename(name+"-master", name+"/src/leyra")
 }
 
 func (l *leyra) download() {
-	l.url = url
-
 	// Gets the file tokens
 	t := strings.Split(l.url, "/")
 	l.archive = t[len(t)-1]
 
-	fmt.Println("Downloading latest version of Leyra...")
 	output, err := os.Create(l.archive)
 	if err != nil {
 		fmt.Println("Error while creating", l.archive, "-", err)
@@ -103,8 +111,8 @@ func (l leyra) unzip() {
 	os.Remove("master.zip")
 }
 
-func (l leyra) rename(dest string) {
-	os.Rename("leyra-master", dest)
+func (l leyra) rename(d, dest string) {
+	os.Rename(d, dest)
 }
 
 func (l leyra) setupDirs(directoryName string) {

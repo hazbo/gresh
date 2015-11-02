@@ -21,6 +21,7 @@ func main() {
 					fmt.Println("e.g. gresh new my_app")
 					return
 				}
+				fmt.Println("Downloading latest version of Leyra...")
 				leyra := new(leyra)
 				leyra.get(c.Args())
 				fmt.Println("")
@@ -45,6 +46,15 @@ func main() {
 				//
 				// makefileFromStub()
 				fmt.Println("All configuration files were found!")
+			},
+		},
+		{
+			Name:  "fetch",
+			Usage: "fetch an application (currently only from GitHub)",
+			Action: func(c *cli.Context) {
+				fmt.Printf("Downloading latest version of %s...\n", c.Args()[0])
+				leyra := new(leyra)
+				leyra.fetch(c.Args())
 			},
 		},
 	}
