@@ -31,6 +31,8 @@ Write your code and tests. Use below as a guide:
 
 clone / fork
 $ git checkout -b feature-branch
+write your code / tests
+$ go fmt ./...
 $ git add .
 $ git commit
 $ git push origin feature-branch
