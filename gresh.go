@@ -57,6 +57,15 @@ func main() {
 				leyra.fetch(c.Args())
 			},
 		},
+		{
+			Name:  "patch",
+			Usage: "send a patch to the GitHub issue tracker",
+			Action: func(c *cli.Context) {
+				patch := new(patch)
+				patch.generate(c.Args()[0], c.Args()[1])
+
+			},
+		},
 	}
 	app.Run(os.Args)
 }
