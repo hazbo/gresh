@@ -58,6 +58,14 @@ func main() {
 			},
 		},
 		{
+			Name:  "authenticate",
+			Usage: "authenticate with GitHub to use the issue tracker",
+			Action: func(c *cli.Context) {
+				patch := new(patch)
+				patch.authenticate(c.Args()[0])
+			},
+		},
+		{
 			Name:  "patch",
 			Usage: "send a patch to the GitHub issue tracker",
 			Action: func(c *cli.Context) {

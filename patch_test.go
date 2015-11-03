@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"testing"
-	//"os/exec"
 )
 
 func TestPatch_Authenticate(t *testing.T) {
