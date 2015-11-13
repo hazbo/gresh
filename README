@@ -19,7 +19,7 @@ $ gresh configure
 will configure the current Leyra application. Currently this doesn't produce any
 files, but will the function that generates files from the stub files in Leyra.
 
-Building / Installing / Tests:
+Building / Tests / Installing:
 
 $ make
 $ make test
